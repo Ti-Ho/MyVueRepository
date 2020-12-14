@@ -15,7 +15,7 @@
           </el-aside>
           <el-main>
             <el-row>
-              <el-col :span="12"><div class="grid-content bg-purple"></div></el-col>
+              <el-col :span="12"><linegraph></linegraph></el-col>
               <el-col :span="12"><div class="grid-content bg-purple-light"></div></el-col>
             </el-row>
 
@@ -36,10 +36,11 @@
 
 <style lang="less" scoped>
   .el-header{
+    height: 40px !important;
     background-color: #B3C0D1;
     color: #333;
     text-align: center;
-    line-height: 60px;
+    line-height: 30px;
   }
 
   .el-aside {
@@ -54,6 +55,7 @@
     color: #333;
     text-align: center;
     line-height: 610px;
+    padding: 0px !important;
   }
 
   body > .el-container {
@@ -61,7 +63,7 @@
   }
 
   .el-row {
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     &:last-child {
       margin-bottom: 0;
     }
@@ -89,14 +91,14 @@
 </style>
 
 <script>
-// import Seller from '../components/Seller'
+import LineGraph from '../components/LineGraph'
 export default {
   name: 'DataView',
   data () {
     return { }
+  },
+  components: {
+    linegraph: LineGraph
   }
-  // components: {
-  //   seller: Seller
-  // }
 }
 </script>
