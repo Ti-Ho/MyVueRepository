@@ -20,7 +20,7 @@
             </el-row>
 
             <el-row>
-              <el-col :span="12"><div class="grid-content bg-purple"></div></el-col>
+              <el-col :span="12"><barlinegraph></barlinegraph></el-col>
               <el-col :span="12"><div class="grid-content bg-purple-light"></div></el-col>
             </el-row>
 
@@ -92,13 +92,15 @@
 
 <script>
 import LineGraph from '../components/LineGraph'
+import BarAndLineGraph from '../components/BarAndLineGraph'
 export default {
   name: 'DataView',
   data () {
     return { }
   },
   components: {
-    linegraph: LineGraph
+    linegraph: LineGraph,
+    barlinegraph: BarAndLineGraph
   }
 }
 </script>
