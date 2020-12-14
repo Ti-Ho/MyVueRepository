@@ -21,14 +21,12 @@
 
             <el-row>
               <el-col :span="12"><barlinegraph></barlinegraph></el-col>
-              <el-col :span="12">
-                  <tabledemo></tabledemo>
-              </el-col>
+              <el-col :span="12"><div class="grid-content bg-purple-light"></div></el-col>
             </el-row>
 
             <el-row>
-              <el-col :span="12"><div class="grid-content bg-purple"></div></el-col>
-              <el-col :span="12"><div class="grid-content bg-purple-light"></div></el-col>
+              <el-col :span="12"><scattergraph></scattergraph></el-col>
+              <el-col :span="12"><tabledemo></tabledemo></el-col>
             </el-row>
           </el-main>
         </el-container>
@@ -98,6 +96,7 @@ import LineGraph from '../components/LineGraph'
 import BarAndLineGraph from '../components/BarAndLineGraph'
 import PieGraph from '../components/PieGraph'
 import TableDemo from '../components/TableDemo'
+import ScatterGraph from '../components/ScatterGraph'
 export default {
   name: 'DataView',
   data () {
@@ -107,7 +106,8 @@ export default {
     linegraph: LineGraph,
     barlinegraph: BarAndLineGraph,
     piegraph: PieGraph,
-    tabledemo: TableDemo
+    tabledemo: TableDemo,
+    scattergraph: ScatterGraph
   }
 }
 </script>
