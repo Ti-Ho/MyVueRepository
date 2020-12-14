@@ -16,7 +16,7 @@
           <el-main>
             <el-row>
               <el-col :span="12"><linegraph></linegraph></el-col>
-              <el-col :span="12"><div class="grid-content bg-purple-light"></div></el-col>
+              <el-col :span="12"><piegraph></piegraph></el-col>
             </el-row>
 
             <el-row>
@@ -63,13 +63,14 @@
   }
 
   .el-row {
-    margin-bottom: 5px;
+    margin-bottom: 0px;
     &:last-child {
       margin-bottom: 0;
     }
   }
   .el-col {
     border-radius: 4px;
+    padding: 3px;
   }
   .bg-purple-dark {
     background: #99a9bf;
@@ -93,6 +94,7 @@
 <script>
 import LineGraph from '../components/LineGraph'
 import BarAndLineGraph from '../components/BarAndLineGraph'
+import PieGraph from '../components/PieGraph'
 export default {
   name: 'DataView',
   data () {
@@ -100,7 +102,8 @@ export default {
   },
   components: {
     linegraph: LineGraph,
-    barlinegraph: BarAndLineGraph
+    barlinegraph: BarAndLineGraph,
+    piegraph: PieGraph
   }
 }
 </script>
