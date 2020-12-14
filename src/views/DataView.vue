@@ -21,7 +21,9 @@
 
             <el-row>
               <el-col :span="12"><barlinegraph></barlinegraph></el-col>
-              <el-col :span="12"><div class="grid-content bg-purple-light"></div></el-col>
+              <el-col :span="12">
+                  <tabledemo></tabledemo>
+              </el-col>
             </el-row>
 
             <el-row>
@@ -54,7 +56,7 @@
     background-color: #E9EEF3;
     color: #333;
     text-align: center;
-    line-height: 610px;
+    /*line-height: 610px;*/
     padding: 0px !important;
   }
 
@@ -70,7 +72,7 @@
   }
   .el-col {
     border-radius: 4px;
-    padding: 3px;
+    padding: 2px;
   }
   .bg-purple-dark {
     background: #99a9bf;
@@ -95,6 +97,7 @@
 import LineGraph from '../components/LineGraph'
 import BarAndLineGraph from '../components/BarAndLineGraph'
 import PieGraph from '../components/PieGraph'
+import TableDemo from '../components/TableDemo'
 export default {
   name: 'DataView',
   data () {
@@ -103,7 +106,8 @@ export default {
   components: {
     linegraph: LineGraph,
     barlinegraph: BarAndLineGraph,
-    piegraph: PieGraph
+    piegraph: PieGraph,
+    tabledemo: TableDemo
   }
 }
 </script>
