@@ -17,9 +17,9 @@
           <el-main>
             <el-row>
               <el-col :span="12">
-<!--             修改：   <div style="width: 100%; height: 260px; background-color: white">-->
+                <div style="width: 100%; height: 310px; background-color: white">
                   <linegraph></linegraph>
-<!--                </div>-->
+                </div>
               </el-col>
               <el-col :span="12"><piegraph></piegraph></el-col>
             </el-row>

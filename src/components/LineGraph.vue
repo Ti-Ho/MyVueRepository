@@ -1,10 +1,9 @@
 <template>
-  <div>
-    <el-container>
+  <div style="height: 100%">
+    <el-container style="height: 100%">
       <el-header>LineGraph Header</el-header>
       <el-main>
-<!--     修改：   <div style="width: 100%; height: 100%; background-color: white" ref="line_ref"></div>-->
-        <div style="width: 100%; height: 280px; background-color: white" ref="line_ref"></div>
+        <div style="width: 100%; height: 100%; background-color: white" ref="line_ref"></div>
       </el-main>
     </el-container>
   </div>
