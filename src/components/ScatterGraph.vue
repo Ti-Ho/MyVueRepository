@@ -2,7 +2,7 @@
   <el-container>
     <el-header>ScatterGraph Header</el-header>
     <el-main>
-      <div style="width: 100%; height: 260px;background-color: white" ref="scatter_ref"></div>
+      <div style="width: 100%; height: 280px;background-color: white" ref="scatter_ref"></div>
     </el-main>
   </el-container>
 </template>

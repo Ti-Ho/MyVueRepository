@@ -17,9 +17,9 @@
           <el-main>
             <el-row>
               <el-col :span="12">
-                <div  style="width: 100%; height: 260px;background-color: white">
+<!--             修改：   <div style="width: 100%; height: 260px; background-color: white">-->
                   <linegraph></linegraph>
-                </div>
+<!--                </div>-->
               </el-col>
               <el-col :span="12"><piegraph></piegraph></el-col>
             </el-row>
@@ -82,7 +82,7 @@
   }
   .el-col {
     border-radius: 4px;
-    padding: 2px;
+    padding: 5px;
   }
   .el-divider {
     margin-top: 0px !important;

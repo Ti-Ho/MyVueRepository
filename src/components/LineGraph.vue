@@ -3,7 +3,8 @@
     <el-container>
       <el-header>LineGraph Header</el-header>
       <el-main>
-        <div style="width: 100%; height: 260px; background-color: white" ref="line_ref"></div>
+<!--     修改：   <div style="width: 100%; height: 100%; background-color: white" ref="line_ref"></div>-->
+        <div style="width: 100%; height: 280px; background-color: white" ref="line_ref"></div>
       </el-main>
     </el-container>
   </div>

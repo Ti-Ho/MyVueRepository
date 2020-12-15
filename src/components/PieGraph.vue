@@ -3,8 +3,8 @@
     <el-container>
       <el-header>PieGraph Header</el-header>
       <el-main>
-        <el-col :span="12"><div style="width: 100%; height: 260px;background-color: white" ref="pie_ref"></div></el-col>
-        <el-col :span="12"><div style="width: 100%; height: 260px;background-color: white" ref="pie2_ref"></div></el-col>
+        <el-col :span="12"><div style="width: 100%; height: 280px;background-color: white" ref="pie_ref"></div></el-col>
+        <el-col :span="12"><div style="width: 100%; height: 280px;background-color: white" ref="pie2_ref"></div></el-col>
       </el-main>
     </el-container>
   </div>

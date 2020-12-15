@@ -3,7 +3,7 @@
     <el-container>
       <el-header>HorizontalBarGraph Header</el-header>
       <el-main>
-        <div style="width: 100%; height: 260px; background-color: white" ref="hbar_ref"></div>
+        <div style="width: 100%; height: 280px; background-color: white" ref="hbar_ref"></div>
       </el-main>
     </el-container>
   </div>
