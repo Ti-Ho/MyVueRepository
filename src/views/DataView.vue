@@ -1,7 +1,8 @@
 <template>
-    <div>
+    <div id = "datapage">
       <el-container>
-        <el-header>Header</el-header>
+        <el-header>数据看板</el-header>
+        <el-divider></el-divider>
         <el-container>
           <el-aside width="140px" style="background-color: rgb(238, 241, 246)">
             <el-menu>
@@ -35,12 +36,19 @@
 </template>
 
 <style lang="less" scoped>
+  #datapage {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+  }
   .el-header{
+    font-size: x-large;
     height: 40px !important;
-    background-color: #B3C0D1;
-    color: #333;
+    background-color: #333333;
+    color: white;
     text-align: center;
-    line-height: 30px;
+    line-height: 40px;
+    border-radius: 10px;
+    font-weight:bold;
+    letter-spacing: 10px
   }
 
   .el-aside {
@@ -88,6 +96,10 @@
   .row-bg {
     padding: 10px 0;
     background-color: #f9fafc;
+  }
+  .el-divider {
+    margin-top: 0px !important;
+    margin-bottom: 10px !important;
   }
 </style>
 

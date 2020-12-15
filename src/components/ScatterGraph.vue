@@ -9,11 +9,13 @@
 
 <style scoped>
   .el-header{
+    font-size: large;
     height: 30px !important;
-    background-color: #B3C0D1;
-    color: #333;
+    background-color: #777777;
+    color: white;
     text-align: center;
     line-height: 30px;
+    border-radius: 10px;
   }
 
   .el-main {

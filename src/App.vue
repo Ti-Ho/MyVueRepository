@@ -6,5 +6,8 @@
 </template>
 
 <style lang="less">
-
+  #app {
+    font-family: Helvetica, Arial, sans-serif;
+    background-color: #eeeeee;
+  }
 </style>
