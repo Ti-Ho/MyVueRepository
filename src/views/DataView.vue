@@ -16,7 +16,11 @@
           </el-aside>
           <el-main>
             <el-row>
-              <el-col :span="12"><linegraph></linegraph></el-col>
+              <el-col :span="12">
+                <div  style="width: 100%; height: 260px;background-color: white">
+                  <linegraph></linegraph>
+                </div>
+              </el-col>
               <el-col :span="12"><piegraph></piegraph></el-col>
             </el-row>
 
@@ -79,23 +83,6 @@
   .el-col {
     border-radius: 4px;
     padding: 2px;
-  }
-  .bg-purple-dark {
-    background: #99a9bf;
-  }
-  .bg-purple {
-    background: #d3dce6;
-  }
-  .bg-purple-light {
-    background: #e5e9f2;
-  }
-  .grid-content {
-    border-radius: 4px;
-    min-height: 36px;
-  }
-  .row-bg {
-    padding: 10px 0;
-    background-color: #f9fafc;
   }
   .el-divider {
     margin-top: 0px !important;
