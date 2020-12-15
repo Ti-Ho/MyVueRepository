@@ -21,7 +21,7 @@
 
             <el-row>
               <el-col :span="12"><barlinegraph></barlinegraph></el-col>
-              <el-col :span="12"><div class="grid-content bg-purple-light"></div></el-col>
+              <el-col :span="12"><hbar></hbar></el-col>
             </el-row>
 
             <el-row>
@@ -97,6 +97,8 @@ import BarAndLineGraph from '../components/BarAndLineGraph'
 import PieGraph from '../components/PieGraph'
 import TableDemo from '../components/TableDemo'
 import ScatterGraph from '../components/ScatterGraph'
+import HorizontalBarGraph from '../components/HorizontalBarGraph'
+
 export default {
   name: 'DataView',
   data () {
@@ -107,7 +109,8 @@ export default {
     barlinegraph: BarAndLineGraph,
     piegraph: PieGraph,
     tabledemo: TableDemo,
-    scattergraph: ScatterGraph
+    scattergraph: ScatterGraph,
+    hbar: HorizontalBarGraph
   }
 }
 </script>

@@ -119,7 +119,7 @@ export default {
     background-color: #E9EEF3;
     color: #333;
     text-align: center;
-    line-height: 250px;
+    /*line-height: 250px;*/
     padding: 0px !important;
   }
 
