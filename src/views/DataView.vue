@@ -17,6 +17,7 @@
           <el-main>
             <el-row>
               <el-col :span="12">
+                <!-- modified -->
                 <div style="width: 100%; height: 310px; background-color: white">
                   <linegraph></linegraph>
                 </div>

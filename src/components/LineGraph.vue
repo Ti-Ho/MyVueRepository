@@ -1,7 +1,11 @@
 <template>
   <div style="height: 100%">
     <el-container style="height: 100%">
-      <el-header>LineGraph Header</el-header>
+      <el-header>
+        LineGraph Header
+        <el-button type="primary" icon="el-icon-full-screen">查看</el-button>
+      </el-header>
+      <!-- modified -->
       <el-main>
         <div style="width: 100%; height: 100%; background-color: white" ref="line_ref"></div>
       </el-main>
@@ -126,11 +130,11 @@ export default {
 <style scoped>
   .el-header{
     font-size: large;
-    height: 30px !important;
+    height: 40px !important;
     background-color: #777777;
     color: white;
     text-align: center;
-    line-height: 30px;
+    line-height: 40px;
     border-radius: 10px;
   }
 
