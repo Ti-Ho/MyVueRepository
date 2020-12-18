@@ -18,7 +18,7 @@
             <el-row>
               <el-col :span="12">
                 <!-- modified -->
-                <div style="width: 100%; height: 310px; background-color: white">
+                <div style="width: 100%; height: 320px; background-color: white">
                   <linegraph></linegraph>
                 </div>
               </el-col>
@@ -76,14 +76,16 @@
   }
 
   .el-row {
-    margin-bottom: 0px;
+    margin-bottom: 10px;
     &:last-child {
       margin-bottom: 0;
     }
   }
   .el-col {
     border-radius: 4px;
-    padding: 5px;
+    /*padding: 5px;*/
+    padding-left: 5px;
+    padding-right: 5px;
   }
   .el-divider {
     margin-top: 0px !important;

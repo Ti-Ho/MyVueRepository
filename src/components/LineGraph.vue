@@ -2,8 +2,10 @@
   <div style="height: 100%">
     <el-container style="height: 100%">
       <el-header>
-        LineGraph Header
-        <el-button type="primary" icon="el-icon-full-screen">查看</el-button>
+        <el-row :gutter="20">
+          <el-col :offset="2" :span="20" style="text-align: center">LineGraph Header</el-col>
+<!--          <el-col :span="2"><el-button border-radius="" type="primary" icon="el-icon-full-screen">查看</el-button></el-col>-->
+        </el-row>
       </el-header>
       <!-- modified -->
       <el-main>
@@ -127,7 +129,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
   .el-header{
     font-size: large;
     height: 40px !important;
@@ -148,5 +150,14 @@ export default {
 
   body > .el-container {
     margin-bottom: 40px;
+  }
+  .el-row {
+    margin-bottom: 0px;
+  &:last-child {
+     margin-bottom: 0;
+   }
+  }
+  .el-col {
+    border-radius: 4px;
   }
 </style>
