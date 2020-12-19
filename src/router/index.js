@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import DataView from '../views/DataView'
 import LinePage from '../views/LinePage'
 import TestAxios from '../views/TestAxios'
+import BarPage from '../views/BarPage'
 
 Vue.use(VueRouter)
 
@@ -16,6 +17,9 @@ const routes = [
   }, {
     path: '/testaxios',
     component: TestAxios
+  }, {
+    path: '/barpage',
+    component: BarPage
   }
 ]
 
