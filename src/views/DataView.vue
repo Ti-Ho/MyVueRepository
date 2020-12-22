@@ -27,7 +27,11 @@
             </el-row>
 
             <el-row>
-              <el-col :span="12"><barlinegraph></barlinegraph></el-col>
+              <el-col :span="12">
+                <div style="width: 100%; height: 320px; background-color: white">
+                  <barlinegraph></barlinegraph>
+                </div>
+              </el-col>
               <el-col :span="12"><hbar></hbar></el-col>
             </el-row>
 

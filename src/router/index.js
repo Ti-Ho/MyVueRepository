@@ -4,6 +4,7 @@ import DataView from '../views/DataView'
 import LinePage from '../views/LinePage'
 import TestAxios from '../views/TestAxios'
 import BarPage from '../views/BarPage'
+import BarAndLineGraph from '../components/BarAndLineGraph'
 
 Vue.use(VueRouter)
 
@@ -20,6 +21,9 @@ const routes = [
   }, {
     path: '/barpage',
     component: BarPage
+  }, {
+    path: '/barandline',
+    component: BarAndLineGraph
   }
 ]
 

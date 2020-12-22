@@ -1,9 +1,15 @@
 <template>
-  <div>
-    <el-container>
-      <el-header>BarAndLineGraph Header</el-header>
+  <div style="height: 100%">
+    <el-container style="height: 100%">
+      <el-header>
+        <el-row :gutter="20">
+          <el-col :offset="2" :span="20" style="text-align: center">BarAndLineGraph Header</el-col>
+          <!--          <el-col :span="2"><el-button border-radius="" type="primary" icon="el-icon-full-screen">查看</el-button></el-col>-->
+        </el-row>
+      </el-header>
+      <!-- modified -->
       <el-main>
-        <div style="width: 100%; height: 280px; background-color: white" ref="bar_line_ref"></div>
+        <div style="width: 100%; height: 100%; background-color: white" ref="bar_line_ref"></div>
       </el-main>
     </el-container>
   </div>

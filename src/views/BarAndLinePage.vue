@@ -1,6 +1,6 @@
 <template>
   <div class="com-page">
-    <linegraph></linegraph>
+    <barandline></barandline>
   </div>
 </template>
 
@@ -13,14 +13,14 @@
 </style>
 
 <script>
-import LineGraph from '../components/LineGraph'
+import BarAndLineGraph from '../components/BarAndLineGraph'
 export default {
-  name: 'LinePage',
+  name: 'BarPage',
   data () {
     return {}
   },
   components: {
-    linegraph: LineGraph
+    barandline: BarAndLineGraph
   }
 }
 </script>
