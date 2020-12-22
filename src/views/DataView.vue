@@ -19,7 +19,8 @@
               <el-col :span="12">
                 <!-- modified -->
                 <div style="width: 100%; height: 320px; background-color: white">
-                  <linegraph></linegraph>
+<!--                  <linegraph></linegraph>-->
+                  <bardemo></bardemo>
                 </div>
               </el-col>
               <el-col :span="12"><piegraph></piegraph></el-col>
@@ -94,12 +95,13 @@
 </style>
 
 <script>
-import LineGraph from '../components/LineGraph'
+// import LineGraph from '../components/LineGraph'
 import BarAndLineGraph from '../components/BarAndLineGraph'
 import PieGraph from '../components/PieGraph'
 import TableDemo from '../components/TableDemo'
 import ScatterGraph from '../components/ScatterGraph'
 import HorizontalBarGraph from '../components/HorizontalBarGraph'
+import BarDemo from '../components/BarDemo'
 
 export default {
   name: 'DataView',
@@ -107,12 +109,13 @@ export default {
     return { }
   },
   components: {
-    linegraph: LineGraph,
+    // linegraph: LineGraph,
     barlinegraph: BarAndLineGraph,
     piegraph: PieGraph,
     tabledemo: TableDemo,
     scattergraph: ScatterGraph,
-    hbar: HorizontalBarGraph
+    hbar: HorizontalBarGraph,
+    bardemo: BarDemo
   }
 }
 </script>

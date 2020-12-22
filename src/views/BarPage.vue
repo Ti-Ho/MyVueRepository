@@ -17,7 +17,7 @@ import BarDemo from '../components/BarDemo'
 export default {
   name: 'BarPage',
   data () {
-    return { }
+    return {}
   },
   methods: {},
   components: {
