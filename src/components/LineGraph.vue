@@ -170,34 +170,4 @@ export default {
     overflow: hidden;
     border-radius: 20px;
   }
-  .el-header{
-    font-size: large;
-    height: 40px !important;
-    background-color: #777777;
-    color: white;
-    text-align: center;
-    line-height: 40px;
-    border-radius: 10px;
-  }
-
-  .el-main {
-    background-color: #E9EEF3;
-    color: #333;
-    text-align: center;
-    line-height: 250px;
-    padding: 0px !important;
-  }
-
-  body > .el-container {
-    margin-bottom: 40px;
-  }
-  .el-row {
-    margin-bottom: 0px;
-  &:last-child {
-     margin-bottom: 0;
-   }
-  }
-  .el-col {
-    border-radius: 4px;
-  }
 </style>
