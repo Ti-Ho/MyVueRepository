@@ -1,17 +1,6 @@
 <template>
-  <div style="height: 100%">
-    <el-container style="height: 100%">
-      <el-header>
-        <el-row :gutter="20">
-          <el-col :offset="2" :span="20" style="text-align: center">LineGraph Header</el-col>
-<!--          <el-col :span="2"><el-button border-radius="" type="primary" icon="el-icon-full-screen">查看</el-button></el-col>-->
-        </el-row>
-      </el-header>
-      <!-- modified -->
-      <el-main>
-        <div style="width: 100%; height: 100%; background-color: white" ref="line_ref"></div>
-      </el-main>
-    </el-container>
+  <div class="com-container">
+    <div class="com-chart" ref="line_ref"></div>
   </div>
 </template>
 
@@ -20,116 +9,167 @@ export default {
   name: 'LineGraph',
   data () {
     return {
-      chartInstance: null
+      chartInstance: null,
+      allData: null, // 服务器返回的数据
+      timerGetDataId: null, // 定时器的标识,
+      datakind: ['女装', '手机数码', '男装', '大家电', '美妆护肤'],
+      titleFontSize: null,
+      MyItemSize: null
     }
   },
   mounted () {
     this.initChart()
     this.getData()
+    // 定时从数据库刷新数据 15s 取一次
+    this.timerGetDataId = setInterval(() => {
+      setTimeout(this.getData, 0)
+    }, 1000 * 15)
+    window.addEventListener('resize', this.screenAdapter)
+    this.screenAdapter()
+  },
+  destroyed () {
+    clearInterval(this.timerGetDataId)
+    this.timerGetDataId = null
+    // 在组件销毁的时候, 需要将监听器取消掉
+    window.removeEventListener('resize', this.screenAdapter)
   },
   methods: {
     // 初始化echartsInstance对象
     initChart () {
-      this.chartInstance = this.$echarts.init(this.$refs.line_ref)
-    },
-    // 获取服务器的数据
-    getData () {
-      // 访问后端数据
-      // this.allData = 获取的数据
-      this.updateChart()
-    },
-    // 更新图表
-    updateChart () {
-      const option = {
+      this.chartInstance = this.$echarts.init(this.$refs.line_ref, 'chalk')
+      const initOption = {
         title: {
-          text: '堆叠区域图'
+          text: '▎堆叠区域图',
+          left: 20,
+          top: 20
+        },
+        grid: {
+          top: '35%',
+          left: '3%',
+          right: '4%',
+          bottom: '2%',
+          containLabel: true // 距离是包含坐标轴上的文字
         },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
-            type: 'cross',
-            label: {
-              backgroundColor: '#6a7985'
-            }
+            type: 'cross'
           }
         },
         legend: {
-          data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
+          left: 20,
+          top: '17%',
+          icon: 'circle'
         },
         toolbox: {
+          itemSize: 20,
           feature: {
             saveAsImage: {}
           }
         },
-        grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
+        xAxis: {
+          type: 'category',
+          boundaryGap: false
         },
-        xAxis: [
-          {
-            type: 'category',
-            boundaryGap: false,
-            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-          }
-        ],
-        yAxis: [
-          {
-            type: 'value'
-          }
-        ],
-        series: [
-          {
-            name: '邮件营销',
-            type: 'line',
-            stack: '总量',
-            areaStyle: {},
-            data: [120, 132, 101, 134, 90, 230, 210]
-          },
-          {
-            name: '联盟广告',
-            type: 'line',
-            stack: '总量',
-            areaStyle: {},
-            data: [220, 182, 191, 234, 290, 330, 310]
-          },
-          {
-            name: '视频广告',
-            type: 'line',
-            stack: '总量',
-            areaStyle: {},
-            data: [150, 232, 201, 154, 190, 330, 410]
-          },
-          {
-            name: '直接访问',
-            type: 'line',
-            stack: '总量',
-            areaStyle: {},
-            data: [320, 332, 301, 334, 390, 330, 320]
-          },
-          {
-            name: '搜索引擎',
-            type: 'line',
-            stack: '总量',
-            label: {
-              normal: {
-                show: true,
-                position: 'top'
-              }
-            },
-            areaStyle: {},
-            data: [820, 932, 901, 934, 1290, 1330, 1320]
-          }
-        ]
+        yAxis: {
+          type: 'value'
+        }
       }
-      this.chartInstance.setOption(option)
+      this.chartInstance.setOption(initOption)
+    },
+    // 获取服务器的数据
+    async getData () {
+      const { data: ret } = await this.$http.get('linechart')
+      this.allData = ret.data.records
+      this.updateChart()
+    },
+    // 更新图表
+    updateChart () {
+      // 半透明的颜色值
+      const colorArr1 = ['rgba(11, 168, 44, 0.5)', 'rgba(44, 110, 255, 0.5)', 'rgba(22, 242, 217, 0.5)', 'rgba(254, 33, 30, 0.5)', 'rgba(250, 105, 0, 0.5)']
+      // 全透明的颜色值
+      const colorArr2 = ['rgba(11, 168, 44, 0)', 'rgba(44, 110, 255, 0)', 'rgba(22, 242, 217, 0)', 'rgba(254, 33, 30, 0)', 'rgba(250, 105, 0, 0)']
+      // 解析出xAxis的数据
+      const timeArr = this.allData.map((item) => {
+        return item.x
+      })
+      // 解析y轴Series的数据
+      const ylength = this.datakind.length
+      var yData = new Array([ylength])
+      yData[0] = this.allData.map((item) => { return item.y1 })
+      yData[1] = this.allData.map((item) => { return item.y2 })
+      yData[2] = this.allData.map((item) => { return item.y3 })
+      yData[3] = this.allData.map((item) => { return item.y4 })
+      yData[4] = this.allData.map((item) => { return item.y5 })
+      const seriesArr = this.datakind.map((item, index) => {
+        return {
+          name: this.datakind[index],
+          type: 'line',
+          data: yData[index],
+          stack: '总量',
+          areaStyle: {
+            color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              {
+                offset: 0,
+                color: colorArr1[index]
+              }, // %0的颜色值
+              {
+                offset: 1,
+                color: colorArr2[index]
+              } // 100%的颜色值
+            ])
+          }
+        }
+      })
+      const dataOption = {
+        xAxis: {
+          data: timeArr
+        },
+        legend: {
+          data: this.datakind
+        },
+        series: seriesArr
+      }
+      this.chartInstance.setOption(dataOption)
+    },
+    screenAdapter () {
+      // console.log(this.$refs.line_ref.offsetWidth)
+      this.titleFontSize = this.$refs.line_ref.offsetWidth / 100 * 3.6
+      this.MyItemSize = Math.floor(this.titleFontSize)
+      const adapterOption = {
+        title: {
+          textStyle: {
+            fontSize: this.titleFontSize
+          }
+        },
+        legend: {
+          itemWidth: this.titleFontSize,
+          itemHeight: this.titleFontSize,
+          itemGap: this.titleFontSize,
+          textStyle: {
+            fontSize: this.titleFontSize / 2
+          }
+        }
+      }
+      this.chartInstance.setOption(adapterOption)
+      this.chartInstance.resize()
     }
   }
 }
 </script>
 
 <style scoped lang="less">
+  .com-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .com-chart {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 20px;
+  }
   .el-header{
     font-size: large;
     height: 40px !important;

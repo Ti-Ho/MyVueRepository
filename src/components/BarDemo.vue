@@ -21,7 +21,7 @@ export default {
     this.initChart()
     this.getData()
     // 定时从数据库刷新数据 15s 取一次
-    this.timer = setInterval(() => {
+    this.timerGetDataId = setInterval(() => {
       setTimeout(this.getData, 0)
     }, 1000 * 15)
     window.addEventListener('resize', this.screenAdapter)
@@ -110,11 +110,11 @@ export default {
     },
     // 获取服务器的数据
     async getData () {
-      const { data: ret } = await this.$http.get('linechart')
+      const { data: ret } = await this.$http.get('barchart')
       this.allData = ret.data.records
       // 对数据排序
       this.allData.sort((a, b) => {
-        return a.y1 - b.y1 // 从小到大的排序
+        return a.y - b.y // 从小到大的排序
       })
       // 每5个元素显示一页
       this.totalPage = this.allData.length % 5 === 0 ? this.allData.length / 5 : this.allData.length / 5 + 1
@@ -127,19 +127,19 @@ export default {
       const start = (this.currentPage - 1) * 5
       const end = this.currentPage * 5
       const showData = this.allData.slice(start, end)
-      const sellerNames = showData.map((item) => {
+      const Names = showData.map((item) => {
         return item.x
       })
-      const sellerValues = showData.map((item) => {
-        return item.y1
+      const Values = showData.map((item) => {
+        return item.y
       })
       const dataOption = {
         yAxis: {
-          data: sellerNames
+          data: Names
         },
         series: [
           {
-            data: sellerValues
+            data: Values
           }
         ]
       }

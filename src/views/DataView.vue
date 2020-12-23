@@ -17,9 +17,7 @@
           <el-main>
             <el-row>
               <el-col :span="12">
-                <!-- modified -->
                 <div style="width: 100%; height: 320px; background-color: white">
-<!--                  <linegraph></linegraph>-->
                   <bardemo></bardemo>
                 </div>
               </el-col>
@@ -32,7 +30,12 @@
                   <barlinegraph></barlinegraph>
                 </div>
               </el-col>
-              <el-col :span="12"><hbar></hbar></el-col>
+
+              <el-col :span="12">
+                <div style="width: 100%; height: 320px; background-color: white">
+                  <linegraph></linegraph>
+                </div>
+              </el-col>
             </el-row>
 
             <el-row>
@@ -99,12 +102,12 @@
 </style>
 
 <script>
-// import LineGraph from '../components/LineGraph'
+import LineGraph from '../components/LineGraph'
 import BarAndLineGraph from '../components/BarAndLineGraph'
 import PieGraph from '../components/PieGraph'
 import TableDemo from '../components/TableDemo'
 import ScatterGraph from '../components/ScatterGraph'
-import HorizontalBarGraph from '../components/HorizontalBarGraph'
+// import HorizontalBarGraph from '../components/HorizontalBarGraph'
 import BarDemo from '../components/BarDemo'
 
 export default {
@@ -113,12 +116,12 @@ export default {
     return { }
   },
   components: {
-    // linegraph: LineGraph,
+    linegraph: LineGraph,
     barlinegraph: BarAndLineGraph,
     piegraph: PieGraph,
     tabledemo: TableDemo,
     scattergraph: ScatterGraph,
-    hbar: HorizontalBarGraph,
+    // hbar: HorizontalBarGraph,
     bardemo: BarDemo
   }
 }
