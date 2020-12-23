@@ -21,7 +21,11 @@
                   <bardemo></bardemo>
                 </div>
               </el-col>
-              <el-col :span="12"><piegraph></piegraph></el-col>
+              <el-col :span="12">
+                <div style="width: 100%; height: 320px; background-color: white">
+                  <piegraph></piegraph>
+                </div>
+              </el-col>
             </el-row>
 
             <el-row>
