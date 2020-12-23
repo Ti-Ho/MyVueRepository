@@ -1,17 +1,6 @@
 <template>
-  <div style="height: 100%">
-    <el-container style="height: 100%">
-      <el-header>
-        <el-row :gutter="20">
-          <el-col :offset="2" :span="20" style="text-align: center">BarAndLineGraph Header</el-col>
-          <!--          <el-col :span="2"><el-button border-radius="" type="primary" icon="el-icon-full-screen">查看</el-button></el-col>-->
-        </el-row>
-      </el-header>
-      <!-- modified -->
-      <el-main>
-        <div style="width: 100%; height: 100%; background-color: white" ref="bar_line_ref"></div>
-      </el-main>
-    </el-container>
+  <div class="com-container">
+    <div class="com-chart" ref="barline_ref"></div>
   </div>
 </template>
 
@@ -20,22 +9,49 @@ export default {
   name: 'BarAndLineGraph',
   data () {
     return {
-      chartInstance: null
+      chartInstance: null,
+      allData: null, // 服务器返回的数据
+      timerGetDataId: null, // 定时器的标识
+      titleFontSize: null,
+      legendData: ['蒸发量', '降水量', '平均温度']
     }
   },
   mounted () {
     this.initChart()
     this.getData()
+    // 定时从数据库刷新数据 15s 取一次
+    this.timerGetDataId = setInterval(() => {
+      setTimeout(this.getData, 0)
+    }, 1000 * 15)
+    window.addEventListener('resize', this.screenAdapter)
+    this.screenAdapter()
+  },
+  destroyed () {
+    clearInterval(this.timerGetDataId)
+    this.timerGetDataId = null
+    // 在组件销毁的时候, 需要将监听器取消掉
+    window.removeEventListener('resize', this.screenAdapter)
   },
   methods: {
+    // 初始化echartsInstance对象
     initChart () {
-      this.chartInstance = this.$echarts.init(this.$refs.bar_line_ref)
-    },
-    getData () {
-      this.updateChart()
-    },
-    updateChart () {
-      const option = {
+      this.chartInstance = this.$echarts.init(this.$refs.barline_ref, 'chalk')
+      const initOption = {
+        title: {
+          text: '▎ 热销商品的占比',
+          left: 20,
+          top: 20
+        },
+        grid: {
+          left: '3%',
+          top: '25%',
+          right: '4%',
+          bottom: '5%',
+          containLabel: true
+        },
+        legend: {
+          top: '15%'
+        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -53,13 +69,9 @@ export default {
             saveAsImage: { show: true }
           }
         },
-        legend: {
-          data: ['蒸发量', '降水量', '平均温度']
-        },
         xAxis: [
           {
             type: 'category',
-            data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
             axisPointer: {
               type: 'shadow'
             }
@@ -86,52 +98,84 @@ export default {
               formatter: '{value} °C'
             }
           }
-        ],
+        ]
+      }
+      this.chartInstance.setOption(initOption)
+    },
+    // 获取服务器的数据
+    async getData () {
+      const { data: ret } = await this.$http.get('barlinechart')
+      this.allData = ret.data.records
+      console.log(this.allData)
+      this.updateChart()
+    },
+    // 更新图表
+    updateChart () {
+      const dataOption = {
+        legend: {
+          data: this.legendData
+        },
         series: [
           {
             name: '蒸发量',
             type: 'bar',
-            data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+            data: this.allData.map(item => { return item.y1 })
           },
           {
             name: '降水量',
             type: 'bar',
-            data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
+            data: this.allData.map(item => { return item.y2 })
           },
           {
             name: '平均温度',
             type: 'line',
             yAxisIndex: 1,
-            data: [2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2]
+            data: this.allData.map(item => { return item.y3 })
           }
-        ]
+        ],
+        xAxis: {
+          data: this.allData.map(item => { return item.x })
+        }
       }
-      this.chartInstance.setOption(option)
+      this.chartInstance.setOption(dataOption)
+    },
+    screenAdapter () {
+      this.titleFontSize = this.$refs.barline_ref.offsetWidth / 100 * 3.6
+      const adapterOption = {
+        toolbox: {
+          itemSize: this.titleFontSize / 2
+        },
+        title: {
+          textStyle: {
+            fontSize: this.titleFontSize
+          }
+        },
+        legend: {
+          itemWidth: this.titleFontSize,
+          itemHeight: this.titleFontSize / 2,
+          itemGap: this.titleFontSize,
+          textStyle: {
+            fontSize: this.titleFontSize / 2
+          }
+        }
+      }
+      this.chartInstance.setOption(adapterOption)
+      this.chartInstance.resize()
     }
   }
 }
 </script>
 
-<style scoped>
-  .el-header{
-    font-size: large;
-    height: 40px !important;
-    background-color: #777777;
-    color: white;
-    text-align: center;
-    line-height: 40px;
-    border-radius: 10px;
+<style scoped lang="less">
+  .com-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
   }
-
-  .el-main {
-    background-color: #E9EEF3;
-    color: #333;
-    text-align: center;
-    /*line-height: 250px;*/
-    padding: 0px !important;
-  }
-
-  body > .el-container {
-    margin-bottom: 40px;
+  .com-chart {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 20px;
   }
 </style>

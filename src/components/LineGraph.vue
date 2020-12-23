@@ -62,7 +62,6 @@ export default {
           icon: 'circle'
         },
         toolbox: {
-          itemSize: 20,
           feature: {
             saveAsImage: {}
           }
@@ -137,6 +136,9 @@ export default {
       this.titleFontSize = this.$refs.line_ref.offsetWidth / 100 * 3.6
       this.MyItemSize = Math.floor(this.titleFontSize)
       const adapterOption = {
+        toolbox: {
+          itemSize: this.titleFontSize / 2
+        },
         title: {
           textStyle: {
             fontSize: this.titleFontSize
