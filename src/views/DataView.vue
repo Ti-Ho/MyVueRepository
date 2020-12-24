@@ -37,13 +37,17 @@
 
               <el-col :span="12">
                 <div style="width: 100%; height: 320px; background-color: white">
-                  <linegraph></linegraph>
+                  <scattergraph></scattergraph>
                 </div>
               </el-col>
             </el-row>
 
             <el-row>
-              <el-col :span="12"><scattergraph></scattergraph></el-col>
+              <el-col :span="12">
+                <div style="width: 100%; height: 320px; background-color: white">
+                  <linegraph></linegraph>
+                </div>
+              </el-col>
               <el-col :span="12"><tabledemo></tabledemo></el-col>
             </el-row>
           </el-main>

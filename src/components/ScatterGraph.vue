@@ -1,35 +1,8 @@
 <template>
-  <el-container>
-    <el-header>ScatterGraph Header</el-header>
-    <el-main>
-      <div style="width: 100%; height: 280px;background-color: white" ref="scatter_ref"></div>
-    </el-main>
-  </el-container>
+  <div class="com-container">
+    <div class="com-chart" ref="scatter_ref"></div>
+  </div>
 </template>
-
-<style scoped>
-  .el-header{
-    font-size: large;
-    height: 40px !important;
-    background-color: #777777;
-    color: white;
-    text-align: center;
-    line-height: 40px;
-    border-radius: 10px;
-  }
-
-  .el-main {
-    background-color: #E9EEF3;
-    color: #333;
-    text-align: center;
-    line-height: 250px;
-    padding: 0px !important;
-  }
-
-  body > .el-container {
-    margin-bottom: 40px;
-  }
-</style>
 
 <script>
 export default {
@@ -37,60 +10,9 @@ export default {
   data () {
     return {
       chartInstance: null,
-      dataAll: [
-        [
-          [10.0, 8.04],
-          [8.0, 6.95],
-          [13.0, 7.58],
-          [9.0, 8.81],
-          [11.0, 8.33],
-          [14.0, 9.96],
-          [6.0, 7.24],
-          [4.0, 4.26],
-          [12.0, 10.84],
-          [7.0, 4.82],
-          [5.0, 5.68]
-        ],
-        [
-          [10.0, 9.14],
-          [8.0, 8.14],
-          [13.0, 8.74],
-          [9.0, 8.77],
-          [11.0, 9.26],
-          [14.0, 8.10],
-          [6.0, 6.13],
-          [4.0, 3.10],
-          [12.0, 9.13],
-          [7.0, 7.26],
-          [5.0, 4.74]
-        ],
-        [
-          [10.0, 7.46],
-          [8.0, 6.77],
-          [13.0, 12.74],
-          [9.0, 7.11],
-          [11.0, 7.81],
-          [14.0, 8.84],
-          [6.0, 6.08],
-          [4.0, 5.39],
-          [12.0, 8.15],
-          [7.0, 6.42],
-          [5.0, 5.73]
-        ],
-        [
-          [8.0, 6.58],
-          [8.0, 5.76],
-          [8.0, 7.71],
-          [8.0, 8.84],
-          [8.0, 8.47],
-          [8.0, 7.04],
-          [8.0, 5.25],
-          [19.0, 12.50],
-          [8.0, 5.56],
-          [8.0, 7.91],
-          [8.0, 6.89]
-        ]
-      ],
+      allData: null, // 服务器返回的数据
+      timerGetDataId: null, // 定时器的标识
+      titleFontSize: null,
       markLineOpt: {
         animation: false,
         label: {
@@ -116,31 +38,34 @@ export default {
   mounted () {
     this.initChart()
     this.getData()
+    // 定时从数据库刷新数据 15s 取一次
+    this.timerGetDataId = setInterval(() => {
+      setTimeout(this.getData, 0)
+    }, 1000 * 15)
+    window.addEventListener('resize', this.screenAdapter)
+    this.screenAdapter()
+  },
+  destroyed () {
+    clearInterval(this.timerGetDataId)
+    this.timerGetDataId = null
+    // 在组件销毁的时候, 需要将监听器取消掉
+    window.removeEventListener('resize', this.screenAdapter)
   },
   methods: {
     // 初始化echartsInstance对象
     initChart () {
-      this.chartInstance = this.$echarts.init(this.$refs.scatter_ref)
-    },
-    // 获取服务器的数据
-    getData () {
-      // 访问后端数据
-      // this.allData = 获取的数据
-      this.updateChart()
-    },
-    // 更新图表
-    updateChart () {
-      const option = {
+      this.chartInstance = this.$echarts.init(this.$refs.scatter_ref, 'chalk')
+      const initOption = {
         title: {
-          text: 'Anscombe\'s quartet',
-          left: 'center',
-          top: 0
+          text: '▎ 热销商品的占比',
+          left: 20,
+          top: 20
         },
         grid: [
-          { x: '7%', y: '7%', width: '38%', height: '38%' },
-          { x2: '7%', y: '7%', width: '38%', height: '38%' },
-          { x: '7%', y2: '7%', width: '38%', height: '38%' },
-          { x2: '7%', y2: '7%', width: '38%', height: '38%' }
+          { top: '13%', x: '7%', y: '7%', width: '38%', height: '38%', containLabel: true },
+          { top: '13%', x2: '7%', y: '7%', width: '38%', height: '38%', containLabel: true },
+          { x: '7%', y2: '3%', width: '38%', height: '38%', containLabel: true },
+          { x2: '7%', y2: '3%', width: '38%', height: '38%', containLabel: true }
         ],
         tooltip: {
           formatter: 'Group {a}: ({c})'
@@ -156,14 +81,39 @@ export default {
           { gridIndex: 1, min: 0, max: 15 },
           { gridIndex: 2, min: 0, max: 15 },
           { gridIndex: 3, min: 0, max: 15 }
-        ],
+        ]
+      }
+      this.chartInstance.setOption(initOption)
+    },
+    // 获取服务器的数据
+    async getData () {
+      const { data: ret } = await this.$http.get('scatterchart')
+      this.allData = ret.data.records
+      // console.log(this.allData)
+      this.updateChart()
+    },
+    // 更新图表
+    updateChart () {
+      // eslint-disable-next-line no-unused-vars
+      var pointData = [[]]
+      var k = 0
+      for (var i = 0; i < this.allData.length; ++i) {
+        if (i === 0 || this.allData[i].pos !== this.allData[i - 1].pos) {
+          pointData[this.allData[i].pos - 1] = []
+          k = 0
+        }
+        pointData[this.allData[i].pos - 1][k++] = [this.allData[i].x, this.allData[i].y]
+        // console.log(this.allData[i])
+      }
+      // console.log(pointData)
+      const dataOption = {
         series: [
           {
             name: 'I',
             type: 'scatter',
             xAxisIndex: 0,
             yAxisIndex: 0,
-            data: this.dataAll[0],
+            data: pointData[0],
             markLine: this.markLineOpt
           },
           {
@@ -171,7 +121,7 @@ export default {
             type: 'scatter',
             xAxisIndex: 1,
             yAxisIndex: 1,
-            data: this.dataAll[1],
+            data: pointData[1],
             markLine: this.markLineOpt
           },
           {
@@ -179,7 +129,7 @@ export default {
             type: 'scatter',
             xAxisIndex: 2,
             yAxisIndex: 2,
-            data: this.dataAll[2],
+            data: pointData[2],
             markLine: this.markLineOpt
           },
           {
@@ -187,13 +137,39 @@ export default {
             type: 'scatter',
             xAxisIndex: 3,
             yAxisIndex: 3,
-            data: this.dataAll[3],
+            data: pointData[3],
             markLine: this.markLineOpt
           }
         ]
       }
-      this.chartInstance.setOption(option)
+      this.chartInstance.setOption(dataOption)
+    },
+    screenAdapter () {
+      this.titleFontSize = this.$refs.scatter_ref.offsetWidth / 100 * 3.6
+      const adapterOption = {
+        title: {
+          textStyle: {
+            fontSize: this.titleFontSize
+          }
+        }
+      }
+      this.chartInstance.setOption(adapterOption)
+      this.chartInstance.resize()
     }
   }
 }
 </script>
+
+<style scoped lang="less">
+  .com-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .com-chart {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 20px;
+  }
+</style>
