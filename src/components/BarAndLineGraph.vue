@@ -106,7 +106,7 @@ export default {
     async getData () {
       const { data: ret } = await this.$http.get('barlinechart')
       this.allData = ret.data.records
-      console.log(this.allData)
+      // console.log(this.allData)
       this.updateChart()
     },
     // 更新图表

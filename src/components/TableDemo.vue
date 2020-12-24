@@ -1,23 +1,29 @@
 <template>
-  <el-table
-    :data="tableData"
-    height="320px"
-    style="width: 100%">
-    <el-table-column
-      prop="date"
-      label="日期"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="name"
-      label="姓名"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="address"
-      label="地址">
-    </el-table-column>
-  </el-table>
+  <div class="com-container">
+    <div class="com-chart" ref="chart_ref">
+      <el-table
+        :data="tableData"
+        height="100%"
+        style="width: 100%"
+        :row-style="{background:'#222733',color:'#888'}"
+        :header-cell-style="{background:'#333333',color:'#999'}">
+        <el-table-column
+          prop="date"
+          label="日期"
+          width="180">
+        </el-table-column>
+        <el-table-column
+          prop="name"
+          label="姓名"
+          width="180">
+        </el-table-column>
+        <el-table-column
+          prop="address"
+          label="地址">
+        </el-table-column>
+      </el-table>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -25,40 +31,61 @@ export default {
   name: 'TableDemo',
   data () {
     return {
-      tableData: [{
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-08',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-06',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-07',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }]
+      tableData: null
+    }
+  },
+  mounted () {
+    this.getData()
+    // 定时从数据库刷新数据 15s 取一次
+    this.timerGetDataId = setInterval(() => {
+      setTimeout(this.getData, 0)
+    }, 1000 * 15)
+  },
+  destroyed () {
+    clearInterval(this.timerGetDataId)
+    this.timerGetDataId = null
+  },
+  methods: {
+    // 获取服务器的数据
+    async getData () {
+      const { data: ret } = await this.$http.get('tabledata')
+      this.tableData = ret.data.records
+    },
+    tableRowClassName ({ row, rowIndex }) {
+      if ((rowIndex + 1) % 2 === 0) {
+        return 'double'
+      } else {
+        return 'single'
+      }
+    },
+    getRowClass ({ rowIndex }) {
+      if (rowIndex === 0) {
+        return 'background:#ebeaef'
+      } else {
+        return ''
+      }
     }
   }
 }
 </script>
 
 <style scoped>
-
+  .com-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .com-chart {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 20px;
+  }
+  /*更改表格颜色*/
+  .double {
+    background: #f6f6f6 !important;
+  }
+  .single {
+    background: #ccc !important;
+  }
 </style>

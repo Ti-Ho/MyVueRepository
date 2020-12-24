@@ -18,7 +18,7 @@
             <el-row>
               <el-col :span="12">
                 <div style="width: 100%; height: 320px; background-color: white">
-                  <bardemo></bardemo>
+                  <tabledemo></tabledemo>
                 </div>
               </el-col>
               <el-col :span="12">
@@ -48,7 +48,11 @@
                   <linegraph></linegraph>
                 </div>
               </el-col>
-              <el-col :span="12"><tabledemo></tabledemo></el-col>
+              <el-col :span="12">
+                <div style="width: 100%; height: 320px; background-color: white">
+                  <bardemo></bardemo>
+                </div>
+              </el-col>
             </el-row>
           </el-main>
         </el-container>

@@ -8,6 +8,7 @@ import BarAndLineGraph from '../components/BarAndLineGraph'
 import HomePage from '../views/HomePage'
 import PiePage from '../views/PiePage'
 import ScatterPage from '../views/ScatterPage'
+import TableDemo from '../components/TableDemo'
 
 Vue.use(VueRouter)
 
@@ -40,6 +41,9 @@ const routes = [
   }, {
     path: '/scatterpage',
     component: ScatterPage
+  }, {
+    path: '/tabledemo',
+    component: TableDemo
   }
 ]
 
