@@ -159,7 +159,8 @@ export default {
     },
     containerStyle () {
       return {
-        backgroundColor: getThemeValue(this.theme).backgroundColor
+        backgroundColor: getThemeValue(this.theme).backgroundColor,
+        color: getThemeValue(this.theme).titleColor
       }
     },
     headerStyle () {
