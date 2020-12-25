@@ -3,6 +3,9 @@
     <el-container>
       <el-header>
         <div>数据看板</div>
+        <div class="head-right">
+          <img src="/static/img/qiehuan_dark.png" @click="handleChangeTheme">
+        </div>
         <el-divider></el-divider>
       </el-header>
       <el-container>
@@ -120,6 +123,12 @@
     top: 30px;
     cursor: pointer;
   }
+  .head-right {
+    position: absolute;
+    right: 50px;
+    cursor: pointer;
+    top: 5px;
+  }
 </style>
 
 <script>
@@ -179,6 +188,11 @@ export default {
       this.$nextTick(() => {
         this.$refs[chartName].screenAdapter()
       })
+    },
+    handleChangeTheme () {
+      // 修改VueX中数据
+      this.$store.commit('changeTheme')
+      // console.log(this.$store.state.theme)
     }
   }
 }
