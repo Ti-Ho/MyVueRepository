@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'ScatterGraph',
   data () {
@@ -54,7 +55,7 @@ export default {
   methods: {
     // 初始化echartsInstance对象
     initChart () {
-      this.chartInstance = this.$echarts.init(this.$refs.scatter_ref, 'chalk')
+      this.chartInstance = this.$echarts.init(this.$refs.scatter_ref, this.theme)
       const initOption = {
         title: {
           text: '▎ 热销商品的占比',
@@ -155,6 +156,17 @@ export default {
       }
       this.chartInstance.setOption(adapterOption)
       this.chartInstance.resize()
+    }
+  },
+  computed: {
+    ...mapState(['theme'])
+  },
+  watch: {
+    theme () {
+      this.chartInstance.dispose() // 销毁当前的图表
+      this.initChart() // 重新以最新的主题名称初始化图表对象
+      this.screenAdapter() // 完成屏幕的适配
+      this.updateChart() // 更新图表的展示
     }
   }
 }
