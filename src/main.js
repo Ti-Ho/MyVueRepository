@@ -5,6 +5,7 @@ import store from './store'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import axios from 'axios'
+import './assets/font/iconfont.css'
 
 // 请求基准路径的配置
 axios.defaults.baseURL = 'http://localhost:8080/'
