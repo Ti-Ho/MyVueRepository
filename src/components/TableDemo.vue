@@ -5,8 +5,9 @@
         :data="tableData"
         height="100%"
         style="width: 100%"
-        :row-style="{background:'#222733',color:'#888'}"
-        :header-cell-style="{background:'#222733',color:'#999'}">
+        :style="comStyle"
+        :row-style="getRowStyle"
+        :header-cell-style="getHeaderStyle">
         <el-table-column
           prop="date"
           label="日期"
@@ -28,6 +29,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { getThemeValue } from '@/utils/theme_utils'
 export default {
   name: 'TableDemo',
   data () {
@@ -54,6 +56,18 @@ export default {
     }
   },
   computed: {
+    getRowStyle () {
+      return {
+        background: getThemeValue(this.theme).tableRowBackColor,
+        color: getThemeValue(this.theme).tableRowColor
+      }
+    },
+    getHeaderStyle () {
+      return {
+        background: getThemeValue(this.theme).tableHeaderBackColor,
+        color: getThemeValue(this.theme).tableHeaderColor
+      }
+    },
     ...mapState(['theme'])
   },
   watch: {

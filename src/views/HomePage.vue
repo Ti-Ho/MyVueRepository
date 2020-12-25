@@ -1,10 +1,10 @@
 <template>
-  <div class="screen-container">
+  <div class="screen-container" :style="containerStyle">
     <el-container>
-      <el-header>
+      <el-header :style="headerStyle">
         <div>数据看板</div>
         <div class="head-right">
-          <img src="/static/img/qiehuan_dark.png" @click="handleChangeTheme">
+          <img :src="themeSrc" @click="handleChangeTheme">
         </div>
         <el-divider></el-divider>
       </el-header>
@@ -77,7 +77,6 @@
   }
   .el-header{
     font-size: x-large;
-    color: white;
     text-align: center;
     line-height: 40px;
     border-radius: 10px;
@@ -98,7 +97,7 @@
     border-radius: 4px;
   }
   .el-divider {
-    height: 3px;
+    height: 1px;
     background-color: #003366;
     margin-top: 0px !important;
     margin-bottom: 0px !important;
@@ -155,22 +154,25 @@ export default {
     }
   },
   computed: {
-    logoSrc () {
-      return '/static/img/' + getThemeValue(this.theme).logoSrc
-    },
-    headerSrc () {
-      return '/static/img/' + getThemeValue(this.theme).headerBorderSrc
-    },
     themeSrc () {
       return '/static/img/' + getThemeValue(this.theme).themeSrc
     },
     containerStyle () {
       return {
-        backgroundColor: getThemeValue(this.theme).backgroundColor,
+        backgroundColor: getThemeValue(this.theme).backgroundColor
+      }
+    },
+    headerStyle () {
+      return {
         color: getThemeValue(this.theme).titleColor
       }
     },
-    ...mapState(['theme'])
+    dividerStyle () {
+      return {
+        'background-color': getThemeValue(this.theme).dividerColor
+      }
+    },
+    ...mapState(['theme']) // 展开映射
   },
   components: {
     linegraph: LineGraph,
