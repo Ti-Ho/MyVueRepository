@@ -1,7 +1,11 @@
 <template>
   <div class="com-page">
     <el-container>
-      <el-header>数据看板</el-header>
+      <el-header>
+        <div>
+          <img src="/static/img/header_border_dark.png" alt="">
+        </div>
+      </el-header>
 <!--      <el-divider></el-divider>-->
       <el-container>
         <el-main>
@@ -20,14 +24,15 @@
   }
   .el-header{
     font-size: x-large;
-    height: 40px !important;
-    background-color: #333333;
+    /*background-color: #333333;*/
     color: white;
     text-align: center;
     line-height: 40px;
     border-radius: 10px;
     font-weight:bold;
-    letter-spacing: 10px
+    letter-spacing: 10px;
+    padding-left: 0;
+    padding-right: 0
   }
 
   .el-aside {

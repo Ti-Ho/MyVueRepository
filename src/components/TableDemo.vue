@@ -50,20 +50,6 @@ export default {
     async getData () {
       const { data: ret } = await this.$http.get('tabledata')
       this.tableData = ret.data.records
-    },
-    tableRowClassName ({ row, rowIndex }) {
-      if ((rowIndex + 1) % 2 === 0) {
-        return 'double'
-      } else {
-        return 'single'
-      }
-    },
-    getRowClass ({ rowIndex }) {
-      if (rowIndex === 0) {
-        return 'background:#ebeaef'
-      } else {
-        return ''
-      }
     }
   }
 }
@@ -80,12 +66,5 @@ export default {
     height: 100%;
     overflow: hidden;
     border-radius: 20px;
-  }
-  /*更改表格颜色*/
-  .double {
-    background: #f6f6f6 !important;
-  }
-  .single {
-    background: #ccc !important;
   }
 </style>
