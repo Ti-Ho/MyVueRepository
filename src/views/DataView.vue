@@ -1,140 +1,17 @@
 <template>
-    <div id = "datapage">
-      <el-container>
-        <el-header>数据看板</el-header>
-        <el-divider></el-divider>
-        <el-container>
-          <el-aside width="140px" style="background-color: rgb(238, 241, 246)">
-            <el-menu>
-              <el-menu-item-group>
-                <el-menu-item index="1-1">选项1</el-menu-item>
-                <el-menu-item index="1-2">选项2</el-menu-item>
-                <el-menu-item index="1-3">选项3</el-menu-item>
-                <el-menu-item index="1-4">选项4</el-menu-item>
-              </el-menu-item-group>
-            </el-menu>
-          </el-aside>
-          <el-main>
-            <el-row>
-              <el-col :span="12">
-                <div style="width: 100%; height: 320px; background-color: white">
-                  <tabledemo></tabledemo>
-                </div>
-              </el-col>
-              <el-col :span="12">
-                <div style="width: 100%; height: 320px; background-color: white">
-                  <piegraph></piegraph>
-                </div>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <div style="width: 100%; height: 320px; background-color: white">
-                  <barlinegraph></barlinegraph>
-                </div>
-              </el-col>
-
-              <el-col :span="12">
-                <div style="width: 100%; height: 320px; background-color: white">
-                  <scattergraph></scattergraph>
-                </div>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <div style="width: 100%; height: 320px; background-color: white">
-                  <linegraph></linegraph>
-                </div>
-              </el-col>
-              <el-col :span="12">
-                <div style="width: 100%; height: 320px; background-color: white">
-                  <bardemo></bardemo>
-                </div>
-              </el-col>
-            </el-row>
-          </el-main>
-        </el-container>
-      </el-container>
+    <div style="width: 100px; height: 100px">
+      <span class="iconfont icon-expand-alt"></span>
     </div>
 </template>
 
 <style lang="less" scoped>
-  #datapage {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-  }
-  .el-header{
-    font-size: x-large;
-    height: 40px !important;
-    background-color: #333333;
-    color: white;
-    text-align: center;
-    line-height: 40px;
-    border-radius: 10px;
-    font-weight:bold;
-    letter-spacing: 10px
-  }
-
-  .el-aside {
-    background-color: #D3DCE6;
-    color: #333;
-    text-align: center;
-    line-height: 610px;
-  }
-
-  .el-main {
-    background-color: #E9EEF3;
-    color: #333;
-    text-align: center;
-    /*line-height: 610px;*/
-    padding: 0px !important;
-  }
-
-  body > .el-container {
-    margin-bottom: 40px;
-  }
-
-  .el-row {
-    margin-bottom: 10px;
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-  .el-col {
-    border-radius: 4px;
-    /*padding: 5px;*/
-    padding-left: 5px;
-    padding-right: 5px;
-  }
-  .el-divider {
-    margin-top: 0px !important;
-    margin-bottom: 10px !important;
-  }
 </style>
 
 <script>
-import LineGraph from '../components/LineGraph'
-import BarAndLineGraph from '../components/BarAndLineGraph'
-import PieGraph from '../components/PieGraph'
-import TableDemo from '../components/TableDemo'
-import ScatterGraph from '../components/ScatterGraph'
-// import HorizontalBarGraph from '../components/HorizontalBarGraph'
-import BarDemo from '../components/BarDemo'
-
 export default {
   name: 'DataView',
   data () {
     return { }
-  },
-  components: {
-    linegraph: LineGraph,
-    barlinegraph: BarAndLineGraph,
-    piegraph: PieGraph,
-    tabledemo: TableDemo,
-    scattergraph: ScatterGraph,
-    // hbar: HorizontalBarGraph,
-    bardemo: BarDemo
   }
 }
 </script>

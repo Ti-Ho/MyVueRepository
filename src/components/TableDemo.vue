@@ -6,7 +6,7 @@
         height="100%"
         style="width: 100%"
         :row-style="{background:'#222733',color:'#888'}"
-        :header-cell-style="{background:'#333333',color:'#999'}">
+        :header-cell-style="{background:'#222733',color:'#999'}">
         <el-table-column
           prop="date"
           label="日期"
